@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class day1Part1 {
+public class day1 {
     public static void main(String[] args) {
         int distance = 0;
         ArrayList<String> fileData = getFileData("src/Day1Input.txt");
@@ -22,6 +22,17 @@ public class day1Part1 {
                 num *= -1;
             }
             distance += num;
+        }
+        System.out.println(distance);
+        distance = 0;
+        for(int j = 0; j < left.size(); j++){
+            int times = 0;
+            for(int k = 0; k < right.size(); k++) {
+                if (left.get(j).toString().equals(right.get(k).toString())){
+                    times ++;
+                }
+            }
+            distance += times * left.get(j);
         }
         System.out.println(distance);
     }
