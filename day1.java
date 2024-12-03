@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class day1 {
     public static void main(String[] args) {
         int distance = 0;
-        ArrayList<String> fileData = getFileData("src/Day1Input.txt");
+        ArrayList<String> fileData = getFileData("Day1Input.txt");
         ArrayList<Integer> left = new ArrayList<Integer>();
         ArrayList<Integer> right = new ArrayList<Integer>();
         for (int i = 0; i < fileData.size(); i++){
