@@ -9,38 +9,39 @@ public class day2 {
         ArrayList<String> fileData = getFileData("Day2Input.txt");
         int safe = 0;
         for(int i = 0; i < fileData.size(); i++){
-            ArrayList<Integer> line = new ArrayList<>();
-            for (int j = 0; j < fileData.size(); j++){
-                String[] split = fileData.get(i).split(" ");
-                line.add(Integer.parseInt(split[0]));
+            ArrayList<Integer> nums = new ArrayList<>();
+            String[] split = fileData.get(i).split(" ");
+            for (int j = 0; j < split.length; j++){
+                nums.add(Integer.parseInt(split[j]));
             }
-            int[] nums = new int[line.size()];
-            System.out.println(line);
-            System.out.println(nums);
-            for (int m = 0; m < line.size(); m++){
-                nums[m] = line.get(m);
+            boolean inc = true;
+            if (nums.get(0) > nums.get(1)){
+                inc = false;
             }
-            boolean good = true;
-            for(int k = 1; k < line.size(); k++){
-                if (!(nums[k-1] < nums[k]
-                        && nums[k] - nums[k-1] <= 3
-                        && nums[k] - nums[k-1] >= 1) ){
-                    good = false;
+            if (inc){
+                boolean good = true;
+                for(int j = 0; j < nums.size()-1; j++){
+                    if(!(nums.get(j) < nums.get(j+1)
+                            && 1 <= nums.get(j+1) - nums.get(j)
+                            && nums.get(j+1) - nums.get(j) <= 3)){
+                        good = false;
+                    }
                 }
-            }
-            if (good){
-                safe ++;
-            }
-            good = true;
-            for(int l = 1; l < line.size(); l++){
-                if (!(nums[l-1] > nums[l]
-                        && nums[l-1] - nums[l] <= 3
-                        && nums[l-1] - nums[l] >= 1) ){
-                    good = false;
+                if (good){
+                    safe ++;
                 }
-            }
-            if (good){
-                safe ++;
+            }else{
+                boolean good = true;
+                for(int k = 0; k < nums.size()-1; k++){
+                    if(!(nums.get(k+1) < nums.get(k)
+                            && 1 <= nums.get(k) - nums.get(k+1)
+                            && nums.get(k) - nums.get(k+1) <= 3)){
+                        good = false;
+                    }
+                }
+                if (good){
+                    safe ++;
+                }
             }
         }
         System.out.println(safe);
