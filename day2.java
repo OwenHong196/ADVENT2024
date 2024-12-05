@@ -68,65 +68,90 @@ public class day2 {
         System.out.println(safe);
     }
     public static void part2(){
+        System.out.println(incP2()+decP2());
+    }
+    public static int incP2(){
         ArrayList<String> fileData = getFileData("Day2Input.txt");
         int safe = 0;
-        for(int i = 0; i < fileData.size(); i++){
+        for(int i = 0; i < fileData.size(); i++) {
             ArrayList<Integer> nums = new ArrayList<>();
             String[] split = fileData.get(i).split(" ");
-            for (int j = 0; j < split.length; j++){
+            for (int j = 0; j < split.length; j++) {
                 nums.add(Integer.parseInt(split[j]));
             }
-            boolean inc = true;
-            int placeholder = nums.remove(0);
-            if (nums.get(0) > nums.get(1)){
-                inc = false;
-            }else{
-                nums.add(0,placeholder);
-            }
-            if (inc){
-                boolean removed = false;
-                boolean good = true;
-                for(int j = 0; j < nums.size()-1; j++){
-                    if(!(nums.get(j) < nums.get(j+1)
-                            && 1 <= nums.get(j+1) - nums.get(j)
-                            && nums.get(j+1) - nums.get(j) <= 3)){
-                        if (!removed){
+            boolean removed = false;
+            boolean good = true;
+            for (int j = 0; j < nums.size() - 1; j++) {
+                if (!(nums.get(j+1) > nums.get(j)
+                        && 1 <= nums.get(j + 1) - nums.get(j)
+                        && nums.get(j + 1) - nums.get(j) <= 3)) {
+                    if (!removed) {
+                        int x = nums.remove(j);
+                        if (j+1 < nums.size() && !(nums.get(j+1) > nums.get(j)
+                                && 1 <= nums.get(j + 1) - nums.get(j)
+                                && nums.get(j + 1) - nums.get(j) <= 3)) {
+                            nums.add(j,x);
+                            nums.remove(j+1);
+                        }
+                        if (j == nums.size()-1 && !(nums.get(j-1) > nums.get(j)
+                                && 1 <= nums.get(j) - nums.get(j-1)
+                                && nums.get(j) - nums.get(j-1) <= 3)){
                             nums.remove(j);
-                            removed = true;
-                            j--;
-                        }else {
-                            good = false;
-                            System.out.println("inc");
                         }
+                        removed = true;
+                        j = -1;
+                    } else {
+                        good = false;
+                        break;
                     }
                 }
-                if (good){
-                    safe ++;
-                    System.out.println("goodinc");
-                }
-            }else{
-                boolean removed = false;
-                boolean good = true;
-                for(int k = 0; k < nums.size()-1; k++){
-                    if(!(nums.get(k+1) < nums.get(k)
-                            && 1 <= nums.get(k) - nums.get(k+1)
-                            && nums.get(k) - nums.get(k+1) <= 3)){
-                        if (!removed){
-                            nums.remove(k);
-                            removed = true;
-                            k--;
-                        }else {
-                            good = false;
-                            System.out.println("dec");
-                        }
-                    }
-                }
-                if (good){
-                    safe ++;
-                    System.out.println("gooddec");
-                }
+            }
+            if (good) {
+                safe++;
             }
         }
-        System.out.println(safe);
+        return safe;
+    }
+    public static int decP2(){
+        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        int safe = 0;
+        for(int i = 0; i < fileData.size(); i++) {
+            ArrayList<Integer> nums = new ArrayList<>();
+            String[] split = fileData.get(i).split(" ");
+            for (int j = 0; j < split.length; j++) {
+                nums.add(Integer.parseInt(split[j]));
+            }
+            boolean removed = false;
+            boolean good = true;
+            for (int j = 0; j < nums.size() - 1; j++) {
+                if (!(nums.get(j) > nums.get(j + 1)
+                        && 1 <= nums.get(j) - nums.get(j + 1)
+                        && nums.get(j) - nums.get(j + 1) <= 3)) {
+                    if (!removed) {
+                        int x = nums.remove(j);
+                        if (j+1 < nums.size() && !(nums.get(j) > nums.get(j + 1)
+                                && 1 <= nums.get(j) - nums.get(j + 1)
+                                && nums.get(j) - nums.get(j + 1) <= 3)){
+                            nums.add(j,x);
+                            nums.remove(j+1);
+                        }
+                        if (j == nums.size()-1 && !(nums.get(j-1) < nums.get(j)
+                                && 1 <= nums.get(j-1) - nums.get(j)
+                                && nums.get(j-1) - nums.get(j) <= 3)){
+                            nums.remove(j);
+                        }
+                        removed = true;
+                        j = -1;
+                    } else {
+                        good = false;
+                        break;
+                    }
+                }
+            }
+            if (good) {
+                safe++;
+            }
+        }
+        return safe;
     }
 }
