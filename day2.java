@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,7 +26,7 @@ public class day2 {
         }
     }
     public static void part1(){
-        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        ArrayList<String> fileData = getFileData("input.txt");
         int safe = 0;
         for(int i = 0; i < fileData.size(); i++){
             ArrayList<Integer> nums = new ArrayList<>();
@@ -71,7 +70,7 @@ public class day2 {
         System.out.println(incP2()+decP2());
     }
     public static int incP2(){
-        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        ArrayList<String> fileData = getFileData("input.txt");
         int safe = 0;
         for(int i = 0; i < fileData.size(); i++) {
             ArrayList<Integer> nums = new ArrayList<>();
@@ -113,7 +112,7 @@ public class day2 {
         return safe;
     }
     public static int decP2(){
-        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        ArrayList<String> fileData = getFileData("input.txt");
         int safe = 0;
         for(int i = 0; i < fileData.size(); i++) {
             ArrayList<Integer> nums = new ArrayList<>();

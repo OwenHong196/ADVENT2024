@@ -27,7 +27,7 @@ public class day3 {
 
     public static void part1(){
         // egrep -o "mul\\([0-9]+,[0-9]+\\)|do()" input | sed 's/mul(//g' | sed 's/)/ /g'
-        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        ArrayList<String> fileData = getFileData("input.txt");
         ArrayList<Integer> left = new ArrayList<Integer>();
         ArrayList<Integer> right = new ArrayList<Integer>();
         for (int i = 0; i < fileData.size(); i++){
@@ -46,7 +46,7 @@ public class day3 {
 
     public static void part2(){
         //egrep -o "mul\\([0-9]+,[0-9]+\\)|do()|don't()" input | sed 's/mul(//g' | sed 's/)/ /g'
-        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        ArrayList<String> fileData = getFileData("input.txt");
         ArrayList<Integer> left = new ArrayList<Integer>();
         ArrayList<Integer> right = new ArrayList<Integer>();
         boolean can = true;
