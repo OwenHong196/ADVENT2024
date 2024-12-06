@@ -5,23 +5,7 @@ import java.util.Scanner;
 
 public class day3 {
     public static void main(String[] args) {
-        int distance = 0;
-        ArrayList<String> fileData = getFileData("Day2Input.txt");
-        ArrayList<Integer> left = new ArrayList<Integer>();
-        ArrayList<Integer> right = new ArrayList<Integer>();
-        for (int i = 0; i < fileData.size(); i++){
-            String[] split = fileData.get(i).split(",");
-            left.add(Integer.parseInt(split[0]));
-            right.add(Integer.parseInt(split[1]));
-            System.out.println("add?");
-        }
-        int sum = 0;
-        System.out.println(left);
-        for(int j = 0; j < left.size(); j++){
-            int num = left.get(j) * right.get(j);
-            sum += num;
-        }
-        System.out.println(sum);
+        part2();
     }
 
     public static ArrayList<String> getFileData(String fileName) {
@@ -39,5 +23,52 @@ public class day3 {
         catch (FileNotFoundException e) {
             return fileData;
         }
+    }
+
+    public static void part1(){
+        // egrep -o "mul\\([0-9]+,[0-9]+\\)|do()" input | sed 's/mul(//g' | sed 's/)/ /g'
+        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        ArrayList<Integer> left = new ArrayList<Integer>();
+        ArrayList<Integer> right = new ArrayList<Integer>();
+        for (int i = 0; i < fileData.size(); i++){
+            String[] split = fileData.get(i).split(",");
+            left.add(Integer.parseInt(split[0]));
+            right.add(Integer.parseInt(split[1]));
+        }
+        int sum = 0;
+        System.out.println(left);
+        for(int j = 0; j < left.size(); j++){
+            int num = left.get(j) * right.get(j);
+            sum += num;
+        }
+        System.out.println(sum);
+    }
+
+    public static void part2(){
+        //egrep -o "mul\\([0-9]+,[0-9]+\\)|do()|don't()" input | sed 's/mul(//g' | sed 's/)/ /g'
+        ArrayList<String> fileData = getFileData("Day2Input.txt");
+        ArrayList<Integer> left = new ArrayList<Integer>();
+        ArrayList<Integer> right = new ArrayList<Integer>();
+        boolean can = true;
+        for (int i = 0; i < fileData.size(); i++){
+            if(fileData.get(i).equals("do")){
+                can = true;
+            } else if (fileData.get(i).equals("don't")) {
+                can = false;
+            }else {
+                if (can){
+                String[] split = fileData.get(i).split(",");
+                left.add(Integer.parseInt(split[0]));
+                right.add(Integer.parseInt(split[1]));
+                }
+            }
+        }
+        int sum = 0;
+        System.out.println(left);
+        for(int j = 0; j < left.size(); j++){
+            int num = left.get(j) * right.get(j);
+            sum += num;
+        }
+        System.out.println(sum);
     }
 }
