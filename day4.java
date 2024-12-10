@@ -16,19 +16,37 @@ public class day4 {
         int count = 0;
         for (int i = 0; i < xmas.length; i++){
             for(int j = 0; j < xmas[i].length; j++){
-                if()
-                //down down
-                //down up
-                //up up
-                //up down
-
                 //down down
                 try{
-
+                    if (downRight(xmas,i,j) && downLeft(xmas,i,j+2)){
+                        count ++;
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException a) { }
+                //down up
+                try{
+                    if (downRight(xmas,i,j) && upRight(xmas,i+2,j)){
+                        count ++;
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException a) { }
+                //up up
+                try{
+                    if (upRight(xmas,i,j) && upLeft(xmas,i,j+2)){
+                        count ++;
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException a) { }
+                //up down
+                try{
+                    if (upLeft(xmas,i,j) && downLeft(xmas,i-2,j)){
+                        count ++;
+                    }
                 }
                 catch (ArrayIndexOutOfBoundsException a) { }
             }
         }
+        System.out.println(count);
     }
 
 
@@ -145,6 +163,50 @@ public class day4 {
             }
         }
         System.out.println(count);
+    }
+    private static boolean downRight(String[][] xmas, int i, int j){
+        try{
+            if (xmas[i][j].equals("M")
+                    && xmas[i+1][j+1].equals("A")
+                    && xmas[i+2][j+2].equals("S")){
+                return true;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException a) { }
+        return false;
+    }
+    private static boolean downLeft(String[][] xmas, int i, int j){
+        try{
+            if (xmas[i][j].equals("M")
+                    && xmas[i+1][j-1].equals("A")
+                    && xmas[i+2][j-2].equals("S")){
+                return true;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException a) { }
+        return false;
+    }
+    private static boolean upRight(String[][] xmas, int i, int j){
+        try{
+            if (xmas[i][j].equals("M")
+                    && xmas[i-1][j+1].equals("A")
+                    && xmas[i-2][j+2].equals("S")){
+                return true;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException a) { }
+        return false;
+    }
+    private static boolean upLeft(String[][] xmas, int i, int j){
+        try{
+            if (xmas[i][j].equals("M")
+                    && xmas[i-1][j-1].equals("A")
+                    && xmas[i-2][j-2].equals("S")){
+                return true;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException a) { }
+        return false;
     }
 }
 
