@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class day5 {
     public static void main(String[] args) {
         part1();
+        part2();
     }
 
     public static ArrayList<String> getFileData(String fileName) {
@@ -19,19 +20,20 @@ public class day5 {
                     fileData.add(line);
             }
             return fileData;
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             return fileData;
         }
     }
-    public static void part1(){
+
+    public static void part1() {
         ArrayList<String> fileData = getFileData("Input.txt");
         int sum = 0;
         for (int i = 0; i < fileData.size(); i++) {
-            ArrayList<Integer> nums = new ArrayList<>() {};
+            ArrayList<Integer> nums = new ArrayList<>() {
+            };
             if (!fileData.get(i).contains("|")) {
                 String[] split = fileData.get(i).split(",");
-                for (int j = 0; j < split.length; j++){
+                for (int j = 0; j < split.length; j++) {
                     nums.add(Integer.parseInt(split[j]));
                 }
             }
@@ -49,6 +51,38 @@ public class day5 {
                     }
                 }
                 if (!exists || check) {
+                    sum += nums.get(nums.size() / 2);
+                }
+            }
+        }
+        System.out.println(sum);
+    }
+
+    public static void part2() {
+        ArrayList<String> fileData = getFileData("Input.txt");
+        int sum = 0;
+        for (int i = 0; i < fileData.size(); i++) {
+            ArrayList<Integer> nums = new ArrayList<>() {
+            };
+            if (!fileData.get(i).contains("|")) {
+                String[] split = fileData.get(i).split(",");
+                for (int j = 0; j < split.length; j++) {
+                    nums.add(Integer.parseInt(split[j]));
+                }
+            }
+            if (nums.size() > 0) {
+                boolean check = false;
+                for (int k = 0; k < nums.size() - 1; k++) {
+                    for (int j = 0; j < fileData.size(); j++) {
+                       if (fileData.get(j).equals(nums.get(k + 1) + "|" + nums.get(k))) {
+                            int x = nums.remove(k+1);
+                            nums.add(k,x);
+                            k = 0;
+                            check = true;
+                       }
+                    }
+                }
+                if (check) {
                     sum += nums.get(nums.size() / 2);
                 }
             }
