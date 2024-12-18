@@ -19,44 +19,40 @@ public class day6 {
         int count = 0;
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
-                System.out.println(up);
-                if (up && check(array, i, j) == 1 && array[i][j].equals("^")) {
+                if (up && array[i][j].equals("^") && check(array, i, j) == 1 ) {
+                    System.out.println("a");
                     array[i][j] = "X";
                     array[i - 1][j] = "^";
-                    i = 0;
-                    j = 0;
-                    count++;
-                }else if (right && check(array, i, j) == 1 && array[i][j].equals("^")) {
-                    array[i][j] = "X";
-                    array[i][j + 1] = "^";
                     for(int k = 0; k < array.length; k++){
                         for(int l = 0; l < array[0].length; l++){
-                            System.out.print(array[i][j]);
+                            System.out.print(array[k][l]);
                         }
                         System.out.println();
                     }
                     i = 0;
                     j = 0;
                     count++;
-                }else if (down && check(array, i, j) == 1 && array[i][j].equals("^")) {
+                }else if (right && array[i][j].equals("^") && check(array, i, j) == 1) {
+                    System.out.println("b");
+                    array[i][j] = "X";
+                    array[i][j + 1] = "^";
+                    i = 0;
+                    j = 0;
+                    count++;
+                }else if (down && array[i][j].equals("^") && check(array, i, j) == 1) {
+                    System.out.println("c");
                     array[i][j] = "X";
                     array[i + 1][j] = "^";
                     i = 0;
                     j = 0;
                     count++;
-                }else if (left && check(array, i, j) == 1 && array[i][j].equals("^")) {
+                }else if (left && array[i][j].equals("^") && check(array, i, j) == 1) {
+                    System.out.println("d");
                     array[i][j] = "X";
                     array[i][j - 1] = "^";
                     i = 0;
                     j = 0;
                     count++;
-                }else if (check(array, i, j) == 2){
-                    i = 0;
-                    j = 0;
-                }
-                if (check(array, i, j) == 0) {
-                    count++;
-                    break;
                 }
             }
         }
@@ -103,9 +99,9 @@ public class day6 {
                 return 2;
             }
         }else if (right){
-            if (col+1 >= arr[0].length && arr[row][col+1].equals(".")){
+            if (col+1 < arr[0].length && arr[row][col+1].equals(".")){
                 return 1;
-            }else if (col+1 >= arr[0].length && arr[row][col+1].equals("#")){
+            }else if (col+1 < arr[0].length && arr[row][col+1].equals("#")){
                 changeDir();
                 return 2;
             }
@@ -115,16 +111,24 @@ public class day6 {
     public static void changeDir() {
         if (day6.up) {
             day6.up = false;
+            day6.left = false;
+            day6.down = false;
             day6.right = true;
         }else if (day6.right) {
-            day6.right = false;
-            day6.down = true;
-        }else if (day6.down) {
-            day6.down = false;
-            day6.left = true;
-        }else if (day6.left) {
+            day6.up = false;
             day6.left = false;
+            day6.down = true;
+            day6.right = false;
+        }else if (day6.down) {
+            day6.up = false;
+            day6.left = true;
+            day6.down = false;
+            day6.right = false;
+        }else if (day6.left) {
             day6.up = true;
+            day6.left = false;
+            day6.down = false;
+            day6.right = false;
         }
     }
 }
