@@ -8,6 +8,7 @@ public class day6 {
     static boolean down = false;
     static boolean left = false;
     static boolean right = false;
+    static int count = 0;
     public static void main(String[] args) {
         ArrayList<String> fileData = getFileData("Input.txt");
         String[][] array = new String[fileData.size()][fileData.get(0).length()];
@@ -16,46 +17,43 @@ public class day6 {
                 array[i][j] = fileData.get(i).substring(j,j+1);
             }
         }
-        int count = 0;
+        count = 0;
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
-                if (up && array[i][j].equals("^") && check(array, i, j) == 1 ) {
-                    System.out.println("a");
+                 if (up && array[i][j].equals("^") && check(array, i, j) == 1 ) {
                     array[i][j] = "X";
                     array[i - 1][j] = "^";
-                    for(int k = 0; k < array.length; k++){
-                        for(int l = 0; l < array[0].length; l++){
-                            System.out.print(array[k][l]);
-                        }
-                        System.out.println();
-                    }
                     i = 0;
                     j = 0;
                     count++;
                 }else if (right && array[i][j].equals("^") && check(array, i, j) == 1) {
-                    System.out.println("b");
                     array[i][j] = "X";
                     array[i][j + 1] = "^";
                     i = 0;
                     j = 0;
                     count++;
                 }else if (down && array[i][j].equals("^") && check(array, i, j) == 1) {
-                    System.out.println("c");
                     array[i][j] = "X";
                     array[i + 1][j] = "^";
                     i = 0;
                     j = 0;
                     count++;
                 }else if (left && array[i][j].equals("^") && check(array, i, j) == 1) {
-                    System.out.println("d");
                     array[i][j] = "X";
                     array[i][j - 1] = "^";
                     i = 0;
                     j = 0;
                     count++;
-                }
+                }else if (up && array[i][j].equals("^") && check(array, i, j) == 1 ) {
+                     array[i][j] = "X";
+                     array[i - 1][j] = "^";
+                     i = 0;
+                     j = 0;
+                     count++;
+                 }
             }
         }
+        count ++;
         System.out.println(count);
     }
 
@@ -83,6 +81,9 @@ public class day6 {
             }else if (row-1 >= 0 && arr[row-1][col].equals("#")){
                 changeDir();
                 return 2;
+            }else if (row-1 >= 0 && arr[row-1][col].equals("X")){
+                count --;
+                return 1;
             }
         }else if (down){
             if (row+1 < arr.length && arr[row+1][col].equals(".")){
@@ -90,6 +91,9 @@ public class day6 {
             }else if (row+1 < arr.length && arr[row+1][col].equals("#")){
                 changeDir();
                 return 2;
+            }else if (row+1 < arr.length && arr[row+1][col].equals("X")){
+                count --;
+                return 1;
             }
         }else if (left){
             if (col-1 >= 0 && arr[row][col-1].equals(".")){
@@ -97,6 +101,9 @@ public class day6 {
             }else if (col-1 >= 0 && arr[row][col-1].equals("#")){
                 changeDir();
                 return 2;
+            }else if (col-1 >= 0 && arr[row][col-1].equals("X")){
+                count --;
+                return 1;
             }
         }else if (right){
             if (col+1 < arr[0].length && arr[row][col+1].equals(".")){
@@ -104,6 +111,9 @@ public class day6 {
             }else if (col+1 < arr[0].length && arr[row][col+1].equals("#")){
                 changeDir();
                 return 2;
+            }else if (col+1 < arr[0].length && arr[row][col+1].equals("X")){
+                count --;
+                return 1;
             }
         }
         return 0;
